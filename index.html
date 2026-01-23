@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>予約フォーム</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         /* 右端の細いナビ（固定） */
@@ -81,60 +85,69 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #ffffff;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            background-color: #fcf9f2;
+            /* Cream background */
+            background-image: linear-gradient(#e8e0d5 1px, transparent 1px);
+            /* Notebook lines */
+            background-size: 100% 24px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            padding-top: 5px;
+            padding-top: 20px;
             overflow-x: hidden;
+            color: #5a4a42;
+            /* Warm brown text */
         }
 
         .container {
-            background-color: #fdfdfd;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(90, 74, 66, 0.08);
+            /* Soft warm shadow */
             width: 90%;
             max-width: 500px;
-            padding: 25px;
+            padding: 30px;
             box-sizing: border-box;
-            margin: 0 auto;
+            margin: 0 auto 40px auto;
+            border: 1px solid #f0e6d2;
         }
 
         h1 {
-            background: linear-gradient(135deg, #3e3f41, #0c0c0c);
-            color: white;
-            padding: 20px;
-            border-radius: 0 0px 0px 0px;
+            background: none;
+            color: #e76f51;
+            /* Soft coral/orange */
+            padding: 10px;
             text-align: center;
             display: block;
-            margin: -20px -15px 20px -15px;
-            font-size: 26px;
-            font-weight: 100;
-            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
+            margin: 0 0 20px 0;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: none;
+            text-shadow: 2px 2px 0px #fff, 3px 3px 0px #f4a261;
+            border-bottom: 2px dashed #f4a261;
         }
 
         .label {
             display: block;
-            margin-bottom: 20px;
-            padding: 3px;
-            font-weight: 400;
-            background-color: #ffffff;
-            color: #1f1f20;
-            border-radius: 0px;
-            font-size: 18px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            font-weight: 700;
+            background-color: #84a59d;
+            /* Sage green pill */
+            color: #ffffff;
+            border-radius: 20px;
+            font-size: 16px;
             text-align: center;
-            text-indent: 20px;
             position: relative;
             overflow: hidden;
-            border-top: 3px solid black;
-            /* 上の線 */
-            border-bottom: 3px solid black;
-            /* 下の線 */
+            border: none;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .labeltyuuou {
@@ -149,36 +162,36 @@
             text-indent: 0px;
             position: relative;
             overflow: hidden;
-            border-top: 2px solid black;
-            /* 上の線 */
-            border-bottom: 2px solid black;
-            /* 下の線 */
+            border-top: none;
+            border-bottom: 2px solid #84a59d;
         }
 
         .labelContent {
             display: block;
             margin-bottom: 10px;
-            padding: 3px;
+            padding: 8px;
             font-weight: 400;
             background-color: #ffffff;
-            color: rgb(20, 20, 20);
-            border-radius: 0px;
-            font-size: 18px;
+            color: #5a4a42;
+            border-radius: 10px;
+            font-size: 16px;
             text-align: center;
-            text-indent: 0px;
             position: relative;
             overflow: hidden;
-            border-top: 1px solid black;
-            /* 上の線 */
-            border-bottom: 1px solid black;
-            /* 下の線 */
+            border: 1px solid #f2cc8f;
         }
 
         /* 必須マークのスタイル */
         .required {
-            color: red;
-            font-weight: bold;
+            color: #e76f51;
+            /* Soft coral */
+            font-weight: 700;
             margin-left: 5px;
+            font-size: 0.8em;
+            background-color: #fff;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 1px solid #e76f51;
         }
 
         .required-icon {
@@ -198,18 +211,26 @@
         input[type="tel"],
         textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            border: 1px solid #555555;
-            border-radius: 3px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0d0b8;
+            /* Soft beige border */
+            border-radius: 15px;
             box-sizing: border-box;
             font-size: 16px;
+            color: #5a4a42;
+            background-color: #fffcf8;
             transition: all 0.3s;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
 
-            /* 以下を追加 */
-            position: relative;
-            top: -5px;
-            /* ← 上に5pxずらす（数値調整OK） */
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            border-color: #f4a261;
+            background-color: #fff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.2);
         }
 
         .visit-buttons,
@@ -227,23 +248,43 @@
         .menu-sections button,
         .irradiations button {
             flex: 1;
-            padding: 10px;
-            border: 1px solid #2e2e2e;
-            border-radius: 4px;
+            padding: 12px 15px;
+            border: 2px solid #f2cc8f;
+            /* Soft yellow/orange border */
+            border-radius: 30px;
+            /* Pill shape */
             background-color: #ffffff;
+            color: #5a4a42;
             cursor: pointer;
             box-sizing: border-box;
             text-align: center;
-            white-space: nowrap;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            min-width: 45%;
+        }
+
+        .visit-buttons button:hover,
+        .symptoms button:hover,
+        .menu-sections button:hover,
+        .irradiations button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .visit-buttons button.active,
         .symptoms button.active,
         .menu-sections button.active,
         .irradiations button.active {
-            background-color: #ffffff;
-            color: #141414;
+            background-color: #f28482;
+            /* Pastel Red/Salmon */
+            color: white;
+            border-color: #f28482;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
+        /* Removed old active style override */
 
         .date-inputs input[type="datetime-local"] {
             width: calc(100% - 22px);
@@ -256,13 +297,25 @@
 
         .submit-button {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             border: none;
-            border-radius: 4px;
-            background-color: #ff4c4c;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #f28482, #f4a261);
+            /* Warm gradient */
             color: #fff;
-            font-size: 18px;
+            font-size: 20px;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 700;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(242, 132, 130, 0.4);
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(242, 132, 130, 0.6);
+            background: linear-gradient(135deg, #f28482, #f4a261);
         }
 
         .calendar-container {
@@ -294,16 +347,29 @@
 
         .calendar th,
         .calendar td {
-            font-size: 12.5px;
-            /* ここでフォントサイズを変更 */
+            font-size: 13px;
             text-align: center;
-            padding: 5px;
+            padding: 10px 5px;
             cursor: pointer;
-            vertical-align: top;
+            vertical-align: middle;
             width: auto;
-            /* 通常のセルは自動調整 */
             box-sizing: border-box;
-            border: 1px solid #1a1a1a;
+            border: 1px solid #f0e6d2;
+            /* Softer border */
+            color: #5a4a42;
+        }
+
+        .calendar th {
+            background-color: #fff9f0;
+            color: #8d7b6f;
+        }
+
+        .calendar td.selected {
+            background-color: #f4a261;
+            color: #fff;
+            border-radius: 50%;
+            /* Circle selection */
+            transform: scale(0.9);
         }
 
         .calendar th:first-child,
@@ -518,21 +584,18 @@
 
         .info-text {
             position: relative;
-            /* ← 上下移動を有効にする */
             top: -20px;
-            /* ← 上に8pxずらす（数値調整可） */
             margin-top: 0;
-            /* ← 上のマージンは0にしておくと自然 */
             margin-bottom: 0px;
             font-size: 13px;
-            color: #000000;
+            color: #5a4a42;
             line-height: 1.5;
             text-align: center;
             word-wrap: break-word;
-            background-color: #f3f3f3;
+            background-color: #fffcf8;
             padding: 0px;
-            border-radius: 0 0 4px 4px;
-            border: 1px solid black;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #f2cc8f;
             border-top: none;
         }
 
@@ -546,59 +609,25 @@
             }
         }
 
-        .symptoms,
-        .options {
-            display: block;
-            /* ボタンを縦並びに */
-        }
-
-        .symptoms button,
-        .options button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #000000;
-            border-radius: 4px;
-            background-color: #ffffff;
-            cursor: pointer;
-            box-sizing: border-box;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .symptoms button.active,
-        .options button.active {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        .highlight-background {
-            cursor: pointer;
-            background-color: #13ca5e;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: 600;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        .symptoms {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .symptoms,
         .options {
-            display: block;
-            /* ボタンを縦並びに */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
+
+        /* Blocks removed for cleanup */
 
         .highlight-text {
             display: inline-block;
-            color: #080808;
+            color: #5a4a42;
             /* オプションテキストの色 */
+            font-weight: 700;
         }
 
         .info-row {
@@ -614,33 +643,27 @@
 
         .edit-button {
             background-color: #ffffff;
-            color: #1a1a1a;
-            border: 1px solid black;
-            /* ← 外枠を黒1pxに設定 */
-            border-radius: 5px;
-            padding: 5px 10px;
+            color: #5a4a42;
+            border: 1px solid #f2cc8f;
+            border-radius: 15px;
+            padding: 5px 15px;
             cursor: pointer;
             transition: background-color 0.3s;
             white-space: nowrap;
-            /* 改行を防ぐ */
             width: auto;
             text-align: center;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
         }
 
         .edit-button:hover {
-            background-color: #141414;
-            color: #ffffff;
-            /* ← 黒背景に合わせて文字色を白にすると視認性が上がります（任意） */
+            background-color: #fff9f0;
+            color: #e76f51;
+            border-color: #e76f51;
         }
 
         /* 100点の予約フォームCSS */
 
-        input:focus,
-        textarea:focus {
-            border-color: #13ca5e;
-            outline: none;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
-        }
+        /* Removed empty rule */
 
         button {
             padding: 12px;
@@ -988,10 +1011,22 @@
     </div>
 
     <div class="container">
-        <div class="highlight-background" style="background-color: #ffcccc; color: #d32f2f; margin-bottom: 20px;">
-            17:00以降のベビーシッターをご希望の方は<br>チャットにてお問合せください。
+        <!-- Sticky Note Style for Notice -->
+        <div class="highlight-background" style="
+            background-color: #ffe5d9; 
+            color: #d35f5f; 
+            margin-bottom: 25px; 
+            border: 2px dashed #ffcad4; 
+            border-radius: 10px; 
+            padding: 15px;
+            font-weight: 700;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            transform: rotate(-1deg);
+        ">
+            <i class="fas fa-bullhorn" style="margin-right: 5px;"></i>
+            17:00以降のベビーシッターをご希望の方は<br>チャットにてお問い合わせください。
         </div>
-        <h1>おさんばBabycare</h1>
+        <h1><i class="fas fa-baby" style="color: #f4a261; margin-right: 10px;"></i>おさんばBabycare</h1>
         <div class="label">お客様名<span class="required">必須</span></div>
         <input type="text" id="name" placeholder="お名前を入力してください" oninput="saveInput('name')">
 
@@ -1012,7 +1047,6 @@
         </div>
 
         <div class="label" id="course">メニューをお選びください<span class="required">必須</span></div>
-        <div class="info-text">※メニューを選択すると空き状況のカレンダーが表示されます</div>
         <div class="menu-sections">
             <button type="button" onclick="showMenu('temporary')">一時預かりメニュー</button>
             <button type="button" onclick="showMenu('babysitter')">ベビーシッターメニュー</button>
