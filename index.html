@@ -1033,12 +1033,8 @@
         <div class="label">電話番号<span class="required">必須</span></div>
         <input type="tel" id="phone" placeholder="電話番号を入力してください" oninput="saveInput('phone')">
 
-        <div class="label">お預けの際に離乳食は必要ですか？<br><span
-                style="font-size: 0.8em; font-weight: normal;">※はいを選択頂いた方には確認後ご連絡いたします。</span></div>
-        <div class="visit-buttons">
-            <button type="button" id="babyFoodYes" onclick="selectBabyFood(this, 'Yes')">はい</button>
-            <button type="button" id="babyFoodNo" onclick="selectBabyFood(this, 'No')">いいえ</button>
-        </div>
+        <div class="label">ご住所<span class="required">必須</span></div>
+        <input type="text" id="zyuusyodayo" placeholder="ご住所を入力してください" oninput="saveInput('zyuusyodayo')">
 
         <div class="label">ご来店回数<span class="required">必須</span></div>
         <div class="visit-buttons">
@@ -1048,7 +1044,7 @@
 
         <div class="label" id="course">メニューをお選びください<span class="required">必須</span></div>
         <div class="menu-sections">
-            <button type="button" onclick="showMenu('temporary')">一時預かりメニュー</button>
+
             <button type="button" onclick="showMenu('babysitter')">ベビーシッターメニュー</button>
             <button type="button" onclick="showMenu('breastcare')">おっぱいケア</button>
         </div>
@@ -1058,27 +1054,7 @@
 
         <div id="treatment-text" style="display: none; margin-bottom: 10px;"></div>
 
-        <div id="temporary" class="menu-section">
-            <div class="labeltyuuou">
-                <span class="highlight-text">◆一時預かりメニュー◆</span>
-            </div>
-            <div class="info-text">▼メニューをお選びください▼</div>
-            <div class="symptoms">
-                <button type="button" onclick="selectSymptom(this)" data-category="一時預かりメニュー"
-                    data-price="0">一時預かり【３時間】</button>
-                <button type="button" onclick="selectSymptom(this)" data-category="一時預かりメニュー"
-                    data-price="0">一時預かり【６時間】</button>
-            </div>
-            <div class="labeltyuuou">
-                <span class="highlight-text">一時預かり：オプション</span>
-            </div>
-            <div class="irradiations">
-                <button type="button" onclick="selectirradiations(this)" data-price="0">30分延長</button>
-                <button type="button" onclick="selectirradiations(this)" data-price="0">1時間延長</button>
-                <button type="button" onclick="selectirradiations(this)" data-price="0">2時間延長</button>
-                <button type="button" onclick="selectirradiations(this)" data-price="0">離乳食</button>
-            </div>
-        </div>
+
 
         <div id="babysitter" class="menu-section">
             <div class="labeltyuuou">
@@ -1166,6 +1142,13 @@
             </div>
         </div>
 
+        <div class="label">お預けの際に離乳食は必要ですか？<br><span
+                style="font-size: 0.8em; font-weight: normal;">※はいを選択頂いた方には確認後ご連絡いたします。</span></div>
+        <div class="visit-buttons">
+            <button type="button" id="babyFoodYes" onclick="selectBabyFood(this, 'Yes')">はい</button>
+            <button type="button" id="babyFoodNo" onclick="selectBabyFood(this, 'No')">いいえ</button>
+        </div>
+
         <div class="label">メッセージ<br>（質問等お気軽にご記入ください）</div>
         <textarea id="message" rows="4" placeholder="メッセージを入力してください"></textarea>
 
@@ -1222,8 +1205,7 @@
         let selectedirradiationsTime = 0; // 訪問回数で選択された時間
 
         let menuTimes = {
-            '一時預かり【３時間】 (180分)': 180,
-            '一時預かり【６時間】 (360分)': 360,
+
             'ベビーシッター【３時間】 (180分)': 180,
             'ベビーシッター【６時間】 (360分)': 360,
             'ベビーシッター【８時間】 (480分)': 480,
@@ -1246,9 +1228,11 @@
         document.addEventListener('DOMContentLoaded', function () {
             const savedName = localStorage.getItem('name');
             const savedPhone = localStorage.getItem('phone');
+            const savedAddress = localStorage.getItem('zyuusyodayo');
 
             if (savedName) document.getElementById('name').value = savedName;
             if (savedPhone) document.getElementById('phone').value = savedPhone;
+            if (savedAddress) document.getElementById('zyuusyodayo').value = savedAddress;
         });
 
         // スムーズスクロール
@@ -1268,6 +1252,7 @@
 
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
+            const address = document.getElementById('zyuusyodayo').value;
             const babyFoodText = babyFoodNeeded ? `<span style="color:#0c0c0c;"><strong>離乳食</strong></span>：${babyFoodNeeded}` : '・離乳食の有無が未選択です';
             const visitCountText = visitCount ? `<span style="color:#0c0c0c;"><strong>来店回数</strong></span>：${visitCount}` : '・来店回数が未選択です';
             const selectedMenuText = selectedMenu ? `<span style="color#0c0c0c;"><strong>コース</strong></span>：${selectedMenu}` : '・コースが未選択です';
@@ -1296,6 +1281,11 @@
         </div>
         <hr>
         <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>ご住所</strong></span>：${address || '未入力'}</p>
+            <button class="edit-button" onclick="scrollToElement('zyuusyodayo')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
             <p>${babyFoodText}</p>
             <button class="edit-button" onclick="scrollToElement('babyFoodYes')">修正</button>
         </div>
@@ -1312,12 +1302,12 @@
         <hr>
         <div class="info-row">
             <p>${selectedSymptomText}</p>
-            <button class="edit-button" onclick="scrollToElement('temporary'); scrollToElement('babysitter'); scrollToElement('breastcare');">修正</button>
+            <button class="edit-button" onclick="scrollToElement('babysitter'); scrollToElement('breastcare');">修正</button>
         </div>
         <hr>
         <div class="info-row">
             <p>${irradiationsText}</p>
-            <button class="edit-button" onclick="scrollToElement('temporary')">修正</button>
+            <button class="edit-button" onclick="scrollToElement('babysitter')">修正</button>
         </div>
         <hr>
         <div class="info-row">
@@ -1711,6 +1701,7 @@
             const formData = {
                 name: document.getElementById('name').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
+                address: document.getElementById('zyuusyodayo').value.trim(),
                 visitCount: visitCount,
                 selectedMenu: selectedMenu,
                 selectedSymptom: selectedSymptom && selectedSymptom.length > 0 ? selectedSymptom : null, // 空の選択肢をチェック
@@ -1727,6 +1718,11 @@
 
             if (!formData.phone) {
                 alert('電話番号を入力してください。');
+                return;
+            }
+
+            if (!formData.address) {
+                alert('ご住所を入力してください。');
                 return;
             }
 
@@ -1750,7 +1746,7 @@
 
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご住所：${formData.address}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。');
@@ -2101,6 +2097,5 @@
 </body>
 
 </html>
-
 
 
