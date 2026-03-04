@@ -1922,7 +1922,7 @@
                             if (new Date(slot.startTime) <= checkTime && new Date(slot.endTime) > checkTime) {
                                 // 説明文に「洋装プランA〈60分〉」が含まれていれば+2（これだけで枠が埋まる）、それ以外は通常通り+1
                                 if (slot.description && slot.description.includes('・洋装プランA〈60分〉')) {
-                                    overlapping += 3;
+                                    overlapping += 1;
                                 } else {
                                     overlapping++;
                                 }
@@ -2097,6 +2097,7 @@
 </body>
 
 </html>
+
 
 
 
