@@ -1030,6 +1030,9 @@
         <div class="label">お客様名<span class="required">必須</span></div>
         <input type="text" id="name" placeholder="お名前を入力してください" oninput="saveInput('name')">
 
+        <div class="label">ふりがな<span class="required">必須</span></div>
+        <input type="text" id="furigana" placeholder="ふりがなを入力してください" oninput="saveInput('furigana')">
+
         <div class="label">電話番号<span class="required">必須</span></div>
         <input type="tel" id="phone" placeholder="電話番号を入力してください" oninput="saveInput('phone')">
 
@@ -1235,10 +1238,12 @@
             const savedName = localStorage.getItem('name');
             const savedPhone = localStorage.getItem('phone');
             const savedAddress = localStorage.getItem('zyuusyodayo');
+            const savedFurigana = localStorage.getItem('furigana');
             const savedChildName = localStorage.getItem('childName');
             const savedChildBirthday = localStorage.getItem('childBirthday');
 
             if (savedName) document.getElementById('name').value = savedName;
+            if (savedFurigana) document.getElementById('furigana').value = savedFurigana;
             if (savedPhone) document.getElementById('phone').value = savedPhone;
             if (savedAddress) document.getElementById('zyuusyodayo').value = savedAddress;
             if (savedChildName) document.getElementById('childName').value = savedChildName;
@@ -1262,6 +1267,7 @@
 
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
+            const furigana = document.getElementById('furigana').value;
             const address = document.getElementById('zyuusyodayo').value;
             const childName = document.getElementById('childName').value;
             const childBirthday = document.getElementById('childBirthday').value;
@@ -1290,6 +1296,11 @@
         <div class="info-row">
             <p><span style="color:#0c0c0c;"><strong>お名前</strong></span>：${name}</p>
             <button class="edit-button" onclick="scrollToElement('name')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>ふりがな</strong></span>：${furigana || '未入力'}</p>
+            <button class="edit-button" onclick="scrollToElement('furigana')">修正</button>
         </div>
         <hr>
         <div class="info-row">
@@ -1722,6 +1733,7 @@
         function submitForm() {
             const formData = {
                 name: document.getElementById('name').value.trim(),
+                furigana: document.getElementById('furigana').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 address: document.getElementById('zyuusyodayo').value.trim(),
                 childName: document.getElementById('childName').value.trim(),
@@ -1770,7 +1782,7 @@
 
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご住所：${formData.address}\nお子様の名前：${formData.childName || '未入力'}\nお子様の生年月日：${formData.childBirthday || '未入力'}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\nふりがな：${formData.furigana || '未入力'}\n電話番号：${formData.phone}\nご住所：${formData.address}\nお子様の名前：${formData.childName || '未入力'}\nお子様の生年月日：${formData.childBirthday || '未入力'}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。');
