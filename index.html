@@ -1142,6 +1142,12 @@
             </div>
         </div>
 
+        <div class="label">お子様の名前<span class="required">必須</span></div>
+        <input type="text" id="childName" placeholder="お子様のお名前を入力してください" oninput="saveInput('childName')">
+
+        <div class="label">お子様の生年月日<span class="required">必須</span></div>
+        <input type="date" id="childBirthday" oninput="saveInput('childBirthday')" onchange="saveInput('childBirthday')" style="width:100%;padding:15px;margin-bottom:20px;border:2px solid #e0d0b8;border-radius:15px;box-sizing:border-box;font-size:16px;color:#5a4a42;background-color:#fffcf8;transition:all 0.3s;font-family:'M PLUS Rounded 1c',sans-serif;">
+
         <div class="label">お預けの際に離乳食は必要ですか？<br><span
                 style="font-size: 0.8em; font-weight: normal;">※はいを選択頂いた方には確認後ご連絡いたします。</span></div>
         <div class="visit-buttons">
@@ -1229,10 +1235,14 @@
             const savedName = localStorage.getItem('name');
             const savedPhone = localStorage.getItem('phone');
             const savedAddress = localStorage.getItem('zyuusyodayo');
+            const savedChildName = localStorage.getItem('childName');
+            const savedChildBirthday = localStorage.getItem('childBirthday');
 
             if (savedName) document.getElementById('name').value = savedName;
             if (savedPhone) document.getElementById('phone').value = savedPhone;
             if (savedAddress) document.getElementById('zyuusyodayo').value = savedAddress;
+            if (savedChildName) document.getElementById('childName').value = savedChildName;
+            if (savedChildBirthday) document.getElementById('childBirthday').value = savedChildBirthday;
         });
 
         // スムーズスクロール
@@ -1253,6 +1263,8 @@
         function updateDisplayInfo() {
             const name = document.getElementById('name').value;
             const address = document.getElementById('zyuusyodayo').value;
+            const childName = document.getElementById('childName').value;
+            const childBirthday = document.getElementById('childBirthday').value;
             const babyFoodText = babyFoodNeeded ? `<span style="color:#0c0c0c;"><strong>離乳食</strong></span>：${babyFoodNeeded}` : '・離乳食の有無が未選択です';
             const visitCountText = visitCount ? `<span style="color:#0c0c0c;"><strong>来店回数</strong></span>：${visitCount}` : '・来店回数が未選択です';
             const selectedMenuText = selectedMenu ? `<span style="color#0c0c0c;"><strong>コース</strong></span>：${selectedMenu}` : '・コースが未選択です';
@@ -1283,6 +1295,16 @@
         <div class="info-row">
             <p><span style="color:#0c0c0c;"><strong>ご住所</strong></span>：${address || '未入力'}</p>
             <button class="edit-button" onclick="scrollToElement('zyuusyodayo')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>お子様の名前</strong></span>：${childName || '未入力'}</p>
+            <button class="edit-button" onclick="scrollToElement('childName')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>お子様の生年月日</strong></span>：${childBirthday || '未入力'}</p>
+            <button class="edit-button" onclick="scrollToElement('childBirthday')">修正</button>
         </div>
         <hr>
         <div class="info-row">
@@ -1702,6 +1724,8 @@
                 name: document.getElementById('name').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 address: document.getElementById('zyuusyodayo').value.trim(),
+                childName: document.getElementById('childName').value.trim(),
+                childBirthday: document.getElementById('childBirthday').value,
                 visitCount: visitCount,
                 selectedMenu: selectedMenu,
                 selectedSymptom: selectedSymptom && selectedSymptom.length > 0 ? selectedSymptom : null, // 空の選択肢をチェック
@@ -1746,7 +1770,7 @@
 
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご住所：${formData.address}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\n電話番号：${formData.phone}\nご住所：${formData.address}\nお子様の名前：${formData.childName || '未入力'}\nお子様の生年月日：${formData.childBirthday || '未入力'}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。');
@@ -2097,7 +2121,6 @@
 </body>
 
 </html>
-
 
 
 
