@@ -1148,6 +1148,15 @@
         <div class="label">お子様の名前<span class="required">必須</span></div>
         <input type="text" id="childName" placeholder="お子様のお名前を入力してください" oninput="saveInput('childName')">
 
+        <div class="label">お子様のふりがな<span class="required">必須</span></div>
+        <input type="text" id="childFurigana" placeholder="お子様のふりがなを入力してください" oninput="saveInput('childFurigana')">
+
+        <div class="label">お子様の性別<span class="required">必須</span></div>
+        <div class="visit-buttons">
+            <button type="button" id="childGenderBoy" onclick="selectChildGender(this, 'boy')">男の子</button>
+            <button type="button" id="childGenderGirl" onclick="selectChildGender(this, 'girl')">女の子</button>
+        </div>
+
         <div class="label">お子様の生年月日<span class="required">必須</span></div>
         <input type="date" id="childBirthday" oninput="saveInput('childBirthday')" onchange="saveInput('childBirthday')" style="width:100%;padding:15px;margin-bottom:20px;border:2px solid #e0d0b8;border-radius:15px;box-sizing:border-box;font-size:16px;color:#5a4a42;background-color:#fffcf8;transition:all 0.3s;font-family:'M PLUS Rounded 1c',sans-serif;">
 
@@ -1171,6 +1180,7 @@
     <script>
         let visitCount = '';
         let babyFoodNeeded = ''; // 離乳食の有無
+        let childGender = ''; // お子様の性別
         let selectedMenu = '';
         let selectedSymptom = [];  // 配列として定義
         let selectedFullDate = '';
@@ -1240,6 +1250,8 @@
             const savedAddress = localStorage.getItem('zyuusyodayo');
             const savedFurigana = localStorage.getItem('furigana');
             const savedChildName = localStorage.getItem('childName');
+            const savedChildFurigana = localStorage.getItem('childFurigana');
+            const savedChildGender = localStorage.getItem('childGender');
             const savedChildBirthday = localStorage.getItem('childBirthday');
 
             if (savedName) document.getElementById('name').value = savedName;
@@ -1247,6 +1259,15 @@
             if (savedPhone) document.getElementById('phone').value = savedPhone;
             if (savedAddress) document.getElementById('zyuusyodayo').value = savedAddress;
             if (savedChildName) document.getElementById('childName').value = savedChildName;
+            if (savedChildFurigana) document.getElementById('childFurigana').value = savedChildFurigana;
+            if (savedChildGender) {
+                childGender = savedChildGender;
+                if (savedChildGender === '男の子') {
+                    document.getElementById('childGenderBoy').classList.add('active');
+                } else if (savedChildGender === '女の子') {
+                    document.getElementById('childGenderGirl').classList.add('active');
+                }
+            }
             if (savedChildBirthday) document.getElementById('childBirthday').value = savedChildBirthday;
         });
 
@@ -1270,6 +1291,8 @@
             const furigana = document.getElementById('furigana').value;
             const address = document.getElementById('zyuusyodayo').value;
             const childName = document.getElementById('childName').value;
+            const childFurigana = document.getElementById('childFurigana').value;
+            const childGenderText = childGender || '';
             const childBirthday = document.getElementById('childBirthday').value;
             const babyFoodText = babyFoodNeeded ? `<span style="color:#0c0c0c;"><strong>離乳食</strong></span>：${babyFoodNeeded}` : '・離乳食の有無が未選択です';
             const visitCountText = visitCount ? `<span style="color:#0c0c0c;"><strong>来店回数</strong></span>：${visitCount}` : '・来店回数が未選択です';
@@ -1311,6 +1334,16 @@
         <div class="info-row">
             <p><span style="color:#0c0c0c;"><strong>お子様の名前</strong></span>：${childName || '未入力'}</p>
             <button class="edit-button" onclick="scrollToElement('childName')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>お子様のふりがな</strong></span>：${childFurigana || '未入力'}</p>
+            <button class="edit-button" onclick="scrollToElement('childFurigana')">修正</button>
+        </div>
+        <hr>
+        <div class="info-row">
+            <p><span style="color:#0c0c0c;"><strong>お子様の性別</strong></span>：${childGenderText || '未選択'}</p>
+            <button class="edit-button" onclick="scrollToElement('childGenderBoy')">修正</button>
         </div>
         <hr>
         <div class="info-row">
@@ -1637,6 +1670,15 @@
             updateDisplayInfo(); // 表示を更新
         }
 
+        function selectChildGender(element, value) {
+            document.getElementById('childGenderBoy').classList.remove('active');
+            document.getElementById('childGenderGirl').classList.remove('active');
+            element.classList.add('active');
+            childGender = (value === 'boy') ? '男の子' : '女の子';
+            localStorage.setItem('childGender', childGender);
+            updateDisplayInfo();
+        }
+
         function selectBabyFood(element, value) {
             document.getElementById('babyFoodYes').classList.remove('active');
             document.getElementById('babyFoodNo').classList.remove('active');
@@ -1737,6 +1779,8 @@
                 phone: document.getElementById('phone').value.trim(),
                 address: document.getElementById('zyuusyodayo').value.trim(),
                 childName: document.getElementById('childName').value.trim(),
+                childFurigana: document.getElementById('childFurigana').value.trim(),
+                childGender: childGender,
                 childBirthday: document.getElementById('childBirthday').value,
                 visitCount: visitCount,
                 selectedMenu: selectedMenu,
@@ -1782,7 +1826,7 @@
 
             liff.sendMessages([{
                 type: 'text',
-                text: `【予約フォーム】\nお名前：${formData.name}\nふりがな：${formData.furigana || '未入力'}\n電話番号：${formData.phone}\nご住所：${formData.address}\nお子様の名前：${formData.childName || '未入力'}\nお子様の生年月日：${formData.childBirthday || '未入力'}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
+                text: `【予約フォーム】\nお名前：${formData.name}\nふりがな：${formData.furigana || '未入力'}\n電話番号：${formData.phone}\nご住所：${formData.address}\nお子様の名前：${formData.childName || '未入力'}\nお子様のふりがな：${formData.childFurigana || '未入力'}\nお子様の性別：${formData.childGender || '未選択'}\nお子様の生年月日：${formData.childBirthday || '未入力'}\n離乳食：${babyFoodNeeded || '未回答'}\nご来店回数：${formData.visitCount}\nコース：${formData.selectedMenu}\nメニュー：${selectedSymptomText},${irradiationsText}\n希望日時：\n${formData.dates[0]}\nメッセージ：${formData.message}`
             }]).then(() => {
                 /* メッセージ送信成功時の処理 */
                 alert('当日キャンセルは無いようにお願いいたします。');
